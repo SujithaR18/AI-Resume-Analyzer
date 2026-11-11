@@ -1,0 +1,646 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    /* border: 2px solid; */
+    background: url(./assests/headerImg.png) no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0px 5px 15px 2px grey;
+}
+
+/* 
+header>.logo {
+    height: 50px;
+    width: 50px;
+    margin-left: 100px;
+} */
+
+.logo>img {
+    height: 100%;
+    width: 100%;
+}
+
+header>h1 {
+    margin-right: 50px;
+    color: white;
+    font-size: 35px;
+    /* text-align: center; */
+}
+
+main {
+    height: 87vh;
+    width: 100%;
+    background: url(./assests/mainImg.png) no-repeat center/cover;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 40% 60%;
+    /* gap: 30px; */
+}
+
+main>#scoreBoard {
+    height: 600px;
+    width: 100%;
+    /* border: 2px solid; */
+    border-radius: 20px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    /* grid-template-rows: repeat(3, 37%); */
+    grid-template-rows: 37% 45% 18%;
+    grid-template-columns: 100%;
+    /* gap: 20px; */
+}
+
+#scoreBoard>.allScores {
+    height: 100%;
+    width: 90%;
+    /* background-color: rgb(212, 240, 252); */
+    /* border: 2px solid; */
+    /* text-align: center; */
+    border-radius: 20px;
+    /* box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7); */
+    grid-template-rows: 20% 80%;
+    grid-template-columns: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    /* flex-direction: column; */
+}
+
+.speedometer {
+    height: 260px;
+    width: 260px;
+    position: relative;
+    /* bottom: 50px; */
+    /* border: 2px solid; */
+}
+
+
+/* =========================
+           OUTER CIRCLE
+        ========================= */
+
+.meter {
+    width: 200px;
+    height: 200px;
+
+    position: absolute;
+    top: 15px;
+    left: 15px;
+
+    border-radius: 50%;
+
+    background: #f8fcff;
+
+    border: 8px solid #d7e8f5;
+
+    box-shadow:
+        0 8px 20px rgba(0, 60, 120, 0.25),
+        inset 0 0 10px rgba(0, 60, 120, 0.12);
+
+    overflow: hidden;
+
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+}
+
+
+/* =========================
+           COLORED GAUGE
+        ========================= */
+
+.gauge {
+    width: 185px;
+    height: 185px;
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(from 270deg,
+
+            #e52525 0deg 54deg,
+
+            #ffd52b 54deg 108deg,
+
+            rgb(3, 161, 3) 108deg 180deg,
+
+            transparent 180deg 360deg);
+
+    /* -webkit-mask:
+                radial-gradient(
+                    circle,
+                    transparent 0 72%,
+                    #000 73%
+                );
+
+            mask:
+                radial-gradient(
+                    circle,
+                    transparent 0 72%,
+                    #000 73%
+                ); */
+}
+
+
+/* =========================
+           WHITE INNER AREA
+        ========================= */
+
+.inner-circle {
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(180deg,
+            #ffffff,
+            #eef7fc);
+}
+
+
+/* =========================
+           GREEN RESULT AREA
+        ========================= */
+
+.result-area {
+    position: absolute;
+
+    width: 250px;
+    height: 58px;
+
+    left: 50%;
+    bottom: 10px;
+
+    transform: translateX(-50%);
+
+
+    /* clip-path: polygon(
+                8% 0,
+                92% 0,
+                100% 100%,
+                0 100%
+            ); */
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    /* z-index: 5; */
+}
+
+
+/* =========================
+           PERCENTAGE
+        ========================= */
+
+.percentage {
+    position: absolute;
+
+    top: 18px;
+    left: 5px;
+
+    width: 100%;
+
+    text-align: center;
+
+    color: #06458e;
+
+    font-size: 60px;
+
+    font-weight: 700;
+
+    z-index: 10;
+}
+
+
+.percentage span {
+    font-size: 25px;
+}
+
+
+/* =========================
+           NEEDLE
+        ========================= */
+
+.needle-container {
+
+    position: absolute;
+
+    width: 110px;
+    height: 8px;
+
+    left: 50%;
+    top: 50%;
+
+    transform-origin: 0% 50%;
+
+    transform:
+        translateY(-50%) rotate(0deg);
+
+    z-index: 20;
+
+    transition:
+        transform 0.8s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+
+.needle {
+
+    position: absolute;
+
+    width: 55px;
+    height: 5px;
+
+    left: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background:
+        linear-gradient(90deg,
+            #123d72,
+            #001e54);
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Needle pointed end */
+
+.needle::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: -2px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%) rotate(45deg);
+
+    width: 8px;
+    height: 8px;
+
+    border-top: 3px solid #062e68;
+    border-right: 3px solid #062e68;
+}
+
+
+/* =========================
+           CENTER NEEDLE CIRCLE
+        ========================= */
+
+.needle-center {
+
+    position: absolute;
+
+    width: 30px;
+    height: 30px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    border: 6px solid #073e7c;
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.25);
+
+    z-index: 30;
+}
+
+.allScores>.atsScore {
+    height: 65%;
+    width: 55%;
+    margin-top: 35px;
+    position: relative;
+    /* bottom: 80px; */
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+    /* border: 2px solid; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.scoreTitle {
+    height: 35%;
+    width: 100%;
+    /* border: 2px solid; */
+    background: linear-gradient(rgb(2, 82, 255), rgb(3, 6, 192));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.scoreTitle>.scoreLogo {
+    height: 50px;
+    width: 50px;
+    /* border: 2px solid; */
+}
+
+.scoreLogo>img {
+    height: 100%;
+    width: 100%;
+}
+
+.scoreTitle>h2 {
+    font-size: 35px;
+    line-height: 80px;
+    color: white;
+}
+
+.scoreDesc {
+    height: 65%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(178, 192, 253); */
+    background-color: rgb(222, 227, 255);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    /* border: 2px solid; */
+}
+
+.scoreDesc>span {
+    /* height: 100%; */
+    font-size: 70px;
+    color: rgb(217, 0, 0);
+}
+
+#scoreBoard>.suggestions {
+    height: 100%;
+    width: 90%;
+    /* border: 2px solid; */
+
+}
+
+.aiSuggest {
+    height: 90%;
+    width: 100%;
+    display: grid;
+    justify-content: start;
+    align-items: start;
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+    grid-template-rows: 22% 78%;
+    grid-template-columns: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.suggestionTitle {
+    height: 100%;
+    background-color: purple;
+    /* border: 2px solid; */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.suggestionDesc {
+    height: 100%;
+    padding: 20px;
+    /* background-color: rgb(222, 227, 255); */
+    background-color: rgb(255, 182, 211);
+    /* border: 2px solid; */
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow-y: scroll;
+}
+
+.suggestionTitle>.suggestionLogo {
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+}
+
+.suggestionLogo>img {
+    height: 100%;
+    width: 100%;
+}
+
+.suggestionTitle>h2 {
+    padding: 15px 0px;
+    font-size: 25px;
+    /* color: rgb(0, 4, 67); */
+    color: white;
+}
+
+.suggestionList {
+    line-height: 30px;
+    font-weight: 700;
+    color: rgb(20, 27, 133);
+}
+
+.suggestionList>i {
+    font-size: 20px;
+    color: rgb(255, 120, 0);
+    margin-right: 10px;
+}
+
+main>#details {
+    height: 580px;
+    width: 100%;
+    /* border: 2px solid; */
+    border-radius: 20px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: repeat(2, 50%);
+    grid-template-columns: 100%;
+    /* gap: 20px; */
+}
+
+#details>#userDetails {
+    height: 100%;
+    width: 80%;
+    /* border: 2px solid; */
+    border-radius: 20px;
+    display: grid;
+    justify-content: start;
+    align-items: start;
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+    grid-template-rows: 20% 80%;
+    grid-template-columns: 100%;
+    overflow: hidden;
+}
+
+#userDetails>.userDetailsTitle {
+    height: 100%;
+    background-color: rgb(155, 173, 255);
+    /* border: 2px solid; */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#userDetails>.userDetailsDesc {
+    height: 100%;
+    padding: 20px;
+    background-color: rgb(222, 227, 255);
+    /* border: 2px solid; */
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow-y: scroll;
+}
+
+.userDetailsTitle>h1 {
+    padding: 15px 10px;
+    font-size: 25px;
+    color: rgb(0, 4, 67);
+}
+
+.userDetailsDesc {
+    font-size: 18px;
+    line-height: 30px;
+    color: rgb(0, 4, 67);
+}
+
+form>label {
+    font-weight: 700;
+}
+
+form>span {
+    color: rgb(20, 27, 133);
+}
+
+#details>.allSkills {
+    height: 100%;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px 20px 0px 0px;
+    /* border: 2px solid; */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.allSkills>.skills {
+    height: 100%;
+    width: 50%;
+    /* border: 2px solid; */
+    border-radius: 20px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 5px 4px rgba(0, 0, 0, 0.7);
+    grid-template-rows: 20% 80%;
+    grid-template-columns: 100%;
+    overflow: hidden;
+}
+
+.skillTitle {
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.skillTitle>h2 {
+    padding: 15px 20px;
+    font-size: 22px;
+    color: white;
+}
+
+#matchSkillTitle>h2 {
+    background-color: rgb(0, 168, 0);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#unmatchSkillTitle>h2 {
+    background-color: rgb(255, 20, 20);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.skillDesc {
+    height: 100%;
+    padding: 20px;
+    /* background-color: whitesmoke; */
+    overflow-y: scroll;
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    /* border: 1px solid; */
+}
+
+#matchSkillDesc {
+    background-color: rgb(195, 253, 195);
+}
+
+#unmatchSkillDesc {
+    background-color: rgb(255, 182, 182);
+}
+
+.skillList {
+    /* margin-bottom: 5px; */
+    line-height: 30px;
+    font-weight: 700;
+    color: rgb(20, 27, 133);
+}
+
+.skillList>i {
+    font-size: 23px;
+    margin-right: 15px;
+}
+
+#matchSkillList>i {
+    color: green;
+}
+
+#unmatchSkillList>i {
+    color: red;
+}

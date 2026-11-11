@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Analyzer Result</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./aiResumeAnalyzerResult.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <!-- <img src="./assests/headerLogo.png" alt="" /> -->
+      </div>
+      <h1>AI Resume Analysis</h1>
+    </header>
+
+    <main>
+      <section id="scoreBoard">
+        <div class="allScores">
+          <div class="speedometer">
+            <!-- Gauge -->
+            <div class="meter">
+              <!-- Colored arc -->
+              <div class="gauge"></div>
+
+              <!-- Inner white section -->
+              <div class="inner-circle"></div>
+
+              <!-- Percentage -->
+              <div class="percentage">
+                <span id="score" th:text="${jobMatch.matchPercentage}"></span
+                ><span>%</span>
+              </div>
+
+              <!-- Needle -->
+              <div class="needle-container" id="needleContainer">
+                <div class="needle"></div>
+              </div>
+
+              <!-- Needle center -->
+              <div class="needle-center"></div>
+
+              <!-- Good Match -->
+              <div class="result-area" id="resultText">Good Match</div>
+            </div>
+          </div>
+
+          <div class="atsScore">
+            <div class="scoreTitle">
+              <div class="scoreLogo">
+                <img src="./assests/scoreMeter.png" alt="" />
+              </div>
+              <h2>ATS Score</h2>
+            </div>
+
+            <div class="scoreDesc">
+              <span th:text="${ats.calculatedScore}">70</span>
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="suggestions">
+          <div class="aiSuggest">
+            <div id="suggestionTitle" class="suggestionTitle">
+              <div class="suggestionLogo">
+                <img src="./assests/suggestion.png" alt="">
+              </div>
+              <h2>Suggestions</h2>
+            </div>
+
+            <div id="suggestionDesc" class="suggestionDesc">
+              <ul type="none">
+                <li
+                  th:each="suggestion : ${jobMatch.suggestions}"
+                  class="suggestionList"
+                >
+                  <i class="fa-solid fa-lightbulb"></i>
+
+                  <span th:text="${suggestion}"></span>
+                  <hr />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="details">
+        <div id="userDetails">
+          <div class="userDetailsTitle">
+            <h1>Resume Summary</h1>
+          </div>
+
+          <div class="userDetailsDesc">
+            <form action="">
+              <label>Name:</label>
+              <span th:text="${resume.name}"></span>
+              <hr />
+
+              <label>Experience:</label>
+              <span th:text="${resume.experience}"></span>
+              <hr />
+
+              <label>Degree:</label>
+              <span th:text="${resume.degree}"></span>
+              <hr />
+
+              <label>Email:</label>
+              <span th:text="${resume.email}"></span>
+              <hr />
+
+              <label>Phone No:</label>
+              <span th:text="${resume.phone}"></span>
+              <hr />
+
+              <label>LinkedIn:</label>
+              <span th:text="${resume.linkedIn}"></span>
+              <hr />
+
+              <label>GitHub:</label>
+              <span th:text="${resume.github}"></span>
+            </form>
+          </div>
+        </div>
+
+        <div class="allSkills">
+          <div class="skills">
+            <div id="matchSkillTitle" class="skillTitle">
+              <h2>Matched Skills</h2>
+            </div>
+
+            <div id="matchSkillDesc" class="skillDesc">
+              <ul type="none">
+                <li
+                  th:each="skill : ${jobMatch.matchedSkills}"
+                  class="skillList"
+                  id="matchSkillList"
+                >
+                  <i class="fa-solid fa-check"></i>
+
+                  <span th:text="${skill}"></span>
+                  <hr />
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="skills">
+            <div id="unmatchSkillTitle" class="skillTitle">
+              <h2>Missing Skills</h2>
+            </div>
+
+            <div id="unmatchSkillDesc" class="skillDesc">
+              <ul type="none">
+                <li
+                  th:each="skill : ${jobMatch.missingSkills}"
+                  class="skillList"
+                  id="unmatchSkillList"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+
+                  <span th:text="${skill}"></span>
+                  <hr />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+	<script th:inline="javascript">
+    	window.jobMatchPercentage =
+        	/*[[${jobMatch.matchPercentage}]]*/ 0;
+	</script>
+	
+    <script src="./aiResumeAnalyzerResult.js"></script>
+  </body>
+</html>

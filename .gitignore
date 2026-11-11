@@ -1,0 +1,11 @@
+target/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Environment and secret files
+.env
+application.properties
+application-local.properties
